@@ -14,7 +14,7 @@
 
    INT8 COUNT,A,B,out;
    //INT8 NUM[]={0Xff,0Xff,0Xff,0X4F,0X66,0X6D,0X7D,0X07,0X7F,0X6F};
-     INT8 NUM[]={0Xc0,0Xf9,0Xa4,0Xb0,0X99,0X92,0X82,0Xf8,0X80,0X90};
+     INT8 NUM[]={0Xc0,0Xf9,0Xa4,0Xb0,0X99,0X92,0X82,0Xf8,0X80,0X90}; // command anod
    
 INT16 adc0,adc1;
 char current[9];
