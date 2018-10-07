@@ -36,7 +36,7 @@ void main()
    output_low(sclk);
    output_low(rclk); 
 
-     I= 500;
+     I= 600;
      I *= 50;
            
     sprintf(current, "%6f", (float)I/1023); 
@@ -181,14 +181,7 @@ void main()
     output_toggle(pin_c2);
     delay_ms(300);
       
-    // serial(n4);
-    // serial(n3);
-    // serial(n2);
-    // serial(n1);
-    // delay_us(100);
-    // output_high(rclk);
-    // delay_us(50);
-    // output_low(rclk); 
+ 
      
 
    }
