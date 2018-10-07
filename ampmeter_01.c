@@ -1,9 +1,10 @@
 
 
 #include <16F877.h>
+#device ADC=10
 #INCLUDE <stdlib.h>
 #Fuses HS
-//#device ADC=10
+
 #use delay(clock=12000000)
 #define sclk pin_c4
 #define rclk pin_c5
@@ -24,22 +25,68 @@ int8 dot;
 int8 n1,n2,n3,n4;
 static char x,C;
 int8 y;
+//int8 count=0;
+int16 sum_i=0;
 int8 num_y[5];
    VOID HEX_BCD(INT8 VAL);
+void display_current(int16 value); 
 void serial(byte dat,int1 point);
 void main()
 {
-   setup_adc_ports(AN0_AN1_AN4_VREF_VREF);
+   setup_adc_ports(AN0_AN1_VREF_VREF);
    setup_adc(ADC_CLOCK_INTERNAL);
    set_tris_b(0x00);
    output_low(ser);
    output_low(sclk);
    output_low(rclk); 
 
-     I= 600;
-     I *= 50;
+    
+
+ 
+
+
+
+     while(TRUE)
+   {
+    //output_toggle(pin_c2);
+    delay_ms(30);
+      
+   // display_current();
+   
+  
+        set_adc_channel(0);
+        delay_us(10);
+        adc0 = read_adc();
+        sum_i+=adc0;
+        count++;
+       
+       if(count>=21)
+       {
+        i=sum_i/20;
+        display_current(i);
+        sum_i=0;
+        count=0;
+        output_toggle(pin_c2);
+       }
+     
+ 
+   }
+
+}
+
+void display_current(int16 value)
+{
+
+//set_adc_channel(0);
+//delay_us(10);
+//i = read_adc();
+
+
+
+     I= value;
+     I *= 62;
            
-    sprintf(current, "%6f", (float)I/1023); 
+    sprintf(current, "%6f", (float)I/512); 
 
  
 
@@ -136,16 +183,6 @@ void main()
     default:
 
             break; }
-
-  
-    
-    
-    
-    
-    
-    
-    
- 
     
       C= CURRENT[1];
     IF(C =='.')
@@ -160,32 +197,11 @@ void main()
       OUTPUT_LOW(DOT2);
     } 
 
-    
-
-
-     count=0;
-    
-
-  
+     count=0; 
      output_high(rclk);
      delay_us(50);
      output_low(rclk);
-     
-
  
-
-
-
-     while(TRUE)
-   {
-    output_toggle(pin_c2);
-    delay_ms(300);
-      
- 
-     
-
-   }
-
 }
 
 
